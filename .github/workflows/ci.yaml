@@ -80,7 +80,10 @@ jobs:
       - SCA
     runs-on: ubuntu-latest
     steps:
-    
+      
+      - name: Git Clone
+        uses: actions/checkout@v4
+        
       - name: Docker Auth
         run: |
           echo "Docker login"
@@ -90,7 +93,7 @@ jobs:
       
       - name: Build
         run: |
-          mvn package
+          mvn -q -DskipTests package
       
       - name: Construccion Imagen
         run: | 
