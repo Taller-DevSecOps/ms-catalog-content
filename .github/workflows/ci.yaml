@@ -63,7 +63,9 @@ jobs:
         with:
           project: 'ms-aumento-voto'
           path: '.'
-          format: 'HTML'   
+          format: 'HTML'
+          args: >
+            --disableCentral
           
       - name: Upload Test results
         uses: actions/upload-artifact@master
