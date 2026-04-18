@@ -86,6 +86,10 @@ jobs:
       - name: Docker Config
         uses: docker/setup-buildx-action@v3
       
+      - name: Build
+        run: |
+          mvn package
+      
       - name: Construccion Imagen
         run: | 
           docker build -t clagosu/ms-catalog-content:latest .
