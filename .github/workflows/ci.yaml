@@ -37,14 +37,14 @@ jobs:
         with:
           category: "/language:java-kotlin"
           
-      - name: Set final commit status
-        uses: myrotvorets/set-commit-status-action@master
-        if: always()
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          status: ${{ job.status }}
-          context: Security Testing
-          sha: ${{ github.sha }}
+      #- name: Set final commit status
+        #uses: myrotvorets/set-commit-status-action@master
+        #if: always()
+        #with:
+          #token: ${{ secrets.GH_TOKEN }}
+          #status: ${{ job.status }}
+          #context: Security Testing
+          #sha: ${{ github.sha }}
  
   SCA:
     needs: SAST
@@ -88,28 +88,24 @@ jobs:
       
       - name: Construccion Imagen
         run: | 
-          #docker build -t clagosu/ms-aumento-voto:latest .
+          docker build -t clagosu/ms-catalog-content:latest .
           echo "Docker build"
-
-  Container-Analysis:
-    name: Container Vulnerability Analysis
-    needs: Docker-build
-    runs-on: ubuntu-latest
-    steps:
-    
+      
       - name: Vulnerability Analysis
         uses: aquasecurity/trivy-action@0.30.0
         with:
-          image-ref: 'clagosu/ms-aumento-voto:latest'
+          image-ref: 'clagosu/ms-catalog-content:latest'
           format: 'table'
           exit-code: '0'
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+
+
           
   Docker-push:
     needs: 
-      - Container-Analysis
+      - Docker-build
     runs-on: ubuntu-latest
     steps:
     
