@@ -30,7 +30,7 @@ jobs:
           #SNYK_TOKEN: ${{ secrets.SYNK_PAT }}
 
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
+        uses: snyk/actions/maven-3-jdk-11@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SYNK_PAT }}
