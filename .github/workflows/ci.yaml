@@ -4,6 +4,7 @@ name: CI Security
 on:
   workflow_call:
   push:
+  pull_request: 
 permissions:
   security-events: write
   packages: read
