@@ -1,0 +1,34 @@
+name: CI Snyk
+
+on:
+  workflow_call:
+  push:
+permissions:
+  security-events: write
+  packages: read
+  actions: read
+  contents: read
+jobs:
+  
+  SAST:
+    runs-on: ubuntu-latest
+    name: Static Application Security Testing
+    steps:   
+    
+      - name: Git Clone
+        uses: actions/checkout@v4
+
+      - name: Set up Snyk CLI to check for security issues
+        uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
+        env:
+          SNYK_TOKEN: ${{ secrets.SYNK_PAT }}
+
+      - name: Snyk Code test
+        run: snyk code test --org=4669a9a4-aafd-4ea2-b923-e18c8957ef88 --report --sarif > snyk-code.sarif
+        env:
+          SNYK_TOKEN: ${{ secrets.SYNK_PAT }}
+
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk-code.sarif
