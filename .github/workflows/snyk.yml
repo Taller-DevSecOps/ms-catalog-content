@@ -3,11 +3,7 @@ name: CI Snyk
 on:
   workflow_call:
   push:
-permissions:
-  security-events: write
-  packages: write
-  actions: write
-  contents: write
+permissions: write-all
 jobs:
   
   SAST:
