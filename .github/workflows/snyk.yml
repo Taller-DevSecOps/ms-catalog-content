@@ -5,9 +5,9 @@ on:
   push:
 permissions:
   security-events: write
-  packages: read
-  actions: read
-  contents: read
+  packages: write
+  actions: write
+  contents: write
 jobs:
   
   SAST:
