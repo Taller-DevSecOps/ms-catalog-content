@@ -23,11 +23,11 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SYNK_PAT }}
 
-      - name: Auth Snyk
-        run: |
-          snyk auth --auth-type=token
-        env:
-          SNYK_TOKEN: ${{ secrets.SYNK_PAT }}
+      #- name: Auth Snyk
+        #run: |
+          #snyk auth --auth-type=token
+        #env:
+          #SNYK_TOKEN: ${{ secrets.SYNK_PAT }}
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
