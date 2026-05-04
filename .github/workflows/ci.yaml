@@ -38,14 +38,20 @@ jobs:
         with:
           category: "/language:java-kotlin"
           
-      #- name: Set final commit status
-        #uses: myrotvorets/set-commit-status-action@master
-        #if: always()
-        #with:
-          #token: ${{ secrets.GH_TOKEN }}
-          #status: ${{ job.status }}
-          #context: Security Testing
-          #sha: ${{ github.sha }}
+      - name: Security Gate - CodeQL alerts
+        run: |
+          alerts=$(gh api \
+            repos/${{ github.repository }}/code-scanning/alerts \
+            --jq '[.[] | select(.state=="open" and (.rule.security_severity_level=="high" or .rule.security_severity_level=="critical"))] | length')
+      
+          echo "High/Critical alerts: $alerts"
+      
+          if [ "$alerts" -gt 0 ]; then
+            echo "Blocking pipeline because CodeQL found high/critical alerts"
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN_GH }}
  
   SCA:
     needs: SAST
