@@ -58,7 +58,7 @@ jobs:
         uses: myrotvorets/set-commit-status-action@master
         with:
           token: ${{ secrets.TOKEN_GH }}
-          status: failed
+          status: failure
           context: SAST
  
   SCA:
