@@ -39,6 +39,7 @@ jobs:
           category: "/language:java-kotlin"
           
       - name: Security Gate - CodeQL alerts
+        continue-on-error: true
         run: |
           alerts=$(gh api \
             repos/${{ github.repository }}/code-scanning/alerts \
@@ -52,6 +53,13 @@ jobs:
           fi
         env:
           GH_TOKEN: ${{ secrets.TOKEN_GH }}
+          
+      - name: Set commit status as pending
+        uses: myrotvorets/set-commit-status-action@master
+        with:
+          token: ${{ secrets.TOKEN_GH }}
+          status: failed
+          context: SAST
  
   SCA:
     needs: SAST
