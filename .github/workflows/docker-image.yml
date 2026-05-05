@@ -14,20 +14,16 @@ jobs:
 
     steps:
 
-      #- uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Run a one-line script
-        run: ls ${{github.workspace}}
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: java-kotlin
+          build-mode: none
+          queries: security-and quality
 
-
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Testing
-        run: echo "testing"
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:java-kotlin"
