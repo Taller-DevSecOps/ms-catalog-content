@@ -5,11 +5,11 @@ on:
   workflow_call:
   push:
   pull_request: 
-permissions:
-  security-events: write
-  packages: read
-  actions: read
-  contents: read
+permissions: write-all
+ # security-events: write
+ # packages: read
+ # actions: read
+ # contents: read
 jobs:
   
   SAST:
@@ -31,7 +31,8 @@ jobs:
         with:
           languages: java-kotlin
           build-mode: none
-          queries: security-and-quality
+          queries:  |
+            security-and-quality
     
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
