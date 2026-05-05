@@ -4,10 +4,6 @@ name: Hola Mundo
 on:
   push:
   workflow_dispatch:
-
-
-
-
 permissions: write-all
 
 
@@ -23,8 +19,8 @@ jobs:
         with:
           languages: java-kotlin
           build-mode: none
-          queries: | 
-            security-and quality
+          queries: |
+            security-and-quality
 
       - name: perform codeql analysis
         uses: github/codeql-action/analyze@v3
