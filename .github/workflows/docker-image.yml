@@ -6,14 +6,16 @@ on:
   workflow_dispatch:
 
 
+
+
+permissions: write-all
+
+
 jobs:
 
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-
+  SAST:
+      runs-on: ubuntu-latest
+      steps:
       - uses: actions/checkout@v4
 
       - name: Initialize CodeQL
@@ -21,9 +23,10 @@ jobs:
         with:
           languages: java-kotlin
           build-mode: none
-          queries: security-and quality
+          queries: | 
+            security-and quality
 
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-        with:
-          category: "/language:java-kotlin"
+      - name: perform codeql analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:java-kotlin"
