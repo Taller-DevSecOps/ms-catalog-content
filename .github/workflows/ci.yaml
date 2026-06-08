@@ -87,6 +87,9 @@ jobs:
       - SAST
       - SCA
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GH_PAT }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
     steps:
       
       - name: Git Clone
