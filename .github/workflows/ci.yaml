@@ -53,13 +53,6 @@ jobs:
           fi
         env:
           GH_TOKEN: ${{ secrets.TOKEN_GH }}
-          
-      - name: Set commit status as pending
-        uses: myrotvorets/set-commit-status-action@master
-        with:
-          token: ${{ secrets.TOKEN_GH }}
-          status: failure
-          context: SAST
  
   SCA:
     needs: SAST
