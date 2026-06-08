@@ -1,4 +1,6 @@
 FROM maven:3.9.9-eclipse-temurin-17 AS build
+ARG AWS_SECRET_ACCESS_KEY
+ARG GH_TOKEN
 WORKDIR /build
 COPY pom.xml .
 COPY src ./src
