@@ -106,7 +106,9 @@ jobs:
         run: |
           mvn -q -DskipTests package
       
-      - name: Construccion Imagen
+      - name: Build Image
+        env:
+          DOCKER_BUILDKIT: 0
         run: | 
           docker build -t clagosu/ms-catalog-content:latest .
           echo "Docker build"
