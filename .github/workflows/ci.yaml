@@ -110,7 +110,7 @@ jobs:
         env:
           DOCKER_BUILDKIT: 0
         run: | 
-          docker build -t clagosu/ms-catalog-content:latest .
+          docker build --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --build-arg GH_TOKEN=$GH_TOKEN -t clagosu/ms-catalog-content:latest .
           echo "Docker build"
       
       - name: Vulnerability Analysis
