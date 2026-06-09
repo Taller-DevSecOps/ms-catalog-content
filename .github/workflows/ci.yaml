@@ -39,6 +39,8 @@ jobs:
           echo "Todos los archivos requeridos están presentes"
                    
   Docker-build:
+    needs: 
+      - Validate
     name: Build Docker Image
     runs-on: ubuntu-latest
     env:
