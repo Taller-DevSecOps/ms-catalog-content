@@ -44,7 +44,6 @@ jobs:
           exit 1
 
   SCA:
-    needs: SAST
     name: Software Composition Analysis
     runs-on: ubuntu-latest
     steps:
