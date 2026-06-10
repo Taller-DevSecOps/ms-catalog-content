@@ -37,16 +37,7 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:java-kotlin"
-          
-      #- name: Set final commit status
-        #uses: myrotvorets/set-commit-status-action@master
-        #if: always()
-        #with:
-          #token: ${{ secrets.GH_TOKEN }}
-          #status: ${{ job.status }}
-          #context: Security Testing
-          #sha: ${{ github.sha }}
- 
+
   SCA:
     needs: SAST
     name: Software Composition Analysis
@@ -110,16 +101,16 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
-
-
           
-  Docker-push:
+  Deploy:
     needs: 
       - Docker-build
+      - SAST
+      - SCA
     runs-on: ubuntu-latest
     steps:
     
-      - name: Docker push
+      - name: Deploy
         run: |
-          echo "Docker push"
+          echo "Deploy"
   
