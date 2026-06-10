@@ -38,6 +38,11 @@ jobs:
         with:
           category: "/language:java-kotlin"
 
+      - name: Validate
+        run: |
+          echo "Se encontraron Vulnerabilidades"
+          exit 1
+
   SCA:
     needs: SAST
     name: Software Composition Analysis
@@ -64,12 +69,14 @@ jobs:
         with:
            name: Depcheck report
            path: ${{github.workspace}}/reports
+
+      - name: Validate
+        run: |
+          echo "Se encontraron Vulnerabilidades"
+          exit 1
                     
   Docker-build:
     name: Build Docker Image
-    needs: 
-      - SAST
-      - SCA
     runs-on: ubuntu-latest
     steps:
       
@@ -87,12 +94,12 @@ jobs:
         run: |
           mvn -q -DskipTests package
       
-      - name: Construccion Imagen
+      - name: Build Image
         run: | 
           docker build -t clagosu/ms-catalog-content:latest .
           echo "Docker build"
       
-      - name: Vulnerability Analysis
+      - name: Image Vulnerability Analysis
         uses: aquasecurity/trivy-action@v0.35.0
         with:
           image-ref: 'clagosu/ms-catalog-content:latest'
@@ -101,6 +108,11 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+
+      - name: Validate
+        run: |
+          echo "Se encontraron Vulnerabilidades"
+          exit 1
           
   Deploy:
     needs: 
