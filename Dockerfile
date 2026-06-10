@@ -4,7 +4,6 @@ ARG GH_TOKEN
 WORKDIR /build
 COPY pom.xml .
 COPY src ./src
-RUN printenv | sort
 RUN mvn -q -DskipTests package
 
 FROM eclipse-temurin:17-jre
