@@ -18,7 +18,7 @@ jobs:
     steps:   
     
       - name: Git Clone
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         
       - name: Get changed files
         uses: tj-actions/changed-files@45.0.1
@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Git Clone
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         
       - name: Build
         run: |
@@ -100,7 +100,7 @@ jobs:
     steps:
       
       - name: Git Clone
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         
       - name: Docker Auth
         run: |
