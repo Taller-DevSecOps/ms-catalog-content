@@ -1,1 +1,1 @@
-# ms-catalog-content1
+# ms-catalog-content
