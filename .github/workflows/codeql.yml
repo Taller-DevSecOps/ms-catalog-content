@@ -1,0 +1,29 @@
+name: Pipeline DevSecOps
+
+on:
+  push:
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+          
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v4
+      with:
+        languages: java-kotlin
+        build-mode: none
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v4
+      with:
+        category: "/language:java-kotlin"
