@@ -55,5 +55,19 @@ jobs:
           name: dependency-check-report    
           path: ${{ github.workspace }}/reports
 
+  Docker:
+    name: Docker
+    runs-on: ubuntu-latest  
+    steps: 
+    
+      - name: Checkout repository
+        uses: actions/checkout@v7
 
-        
+      - name: Docker build
+        run: docker build -t ${{ github.repository }}:latest .
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: '${{ github.repository }}:latest'
+          format: 'table'
